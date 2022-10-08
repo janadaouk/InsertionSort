@@ -9,36 +9,51 @@ let unsortedIntegers = [5, 1, 4, 2, 8]
 
 // Add your code below:
 //
-var array = unsortedIntegers
-func swap(integers: inout [Int], firstIndex: Int, secondIndex: Int) {
+var unsorted = [String]()
+var input: String
+
+func swap(integers: inout [String], firstIndex: Int, secondIndex: Int) {
    
     let temp = integers[firstIndex]
      integers[firstIndex] = integers[secondIndex]
      integers[secondIndex] = temp
 }
 
-func sort(array: [Int])    {
+func compareString(stringOne: String, stringTwo: String) -> Bool {
+
+    let firstString = stringOne.lowercased().filter("abcdefghijklmnopqrstuvwxyz".contains)
+    let secondString = stringTwo.lowercased().filter("abcdefghijklmnopqrstuvwxyz".contains)
+    if firstString > secondString {
+        return true
+    }
+    return false
+}
+        
+func sort(array: [String])    {
 
     var totalswapcount = 0
     var passcount = 0
-    var array = unsortedIntegers
+    var array = array
     var swapcountperpass = 0
 
-    print("Pass: \(passcount), Swaps: \(swapcountperpass)/\(totalswapcount), Array: \(unsortedIntegers)")
+//    print("Pass: \(passcount), Swaps: \(swapcountperpass)/\(totalswapcount), Array: \(unsortedIntegers)")
     for index in 1..<array.count {
         swapcountperpass = 0
         passcount += 1
         let currentIndex = array[index]
         var crntIndex = index
         var previousIndex = index - 1
-        while previousIndex>=0 && array[previousIndex] > currentIndex {
+        while previousIndex>=0 && compareString(stringOne: array[previousIndex], stringTwo: currentIndex) == true {
             swap(integers: &array, firstIndex: crntIndex, secondIndex: previousIndex)     
             crntIndex -= 1
             previousIndex -= 1
             totalswapcount += 1
             swapcountperpass += 1
         }
-        print("Pass: \(passcount), Swaps: \(swapcountperpass)/\(totalswapcount), Array: \(array)")        
+  //      print("Pass: \(passcount), Swaps: \(swapcountperpass)/\(totalswapcount), Array: \(array)")        
     }
 }
-sort(array: array)
+while let input = readLine() {
+    unsorted.append(input)
+}
+sort(array: unsorted)
